@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   MOMENTUM — Tailwind v4 CSS-First Design System
+   Using @theme for custom design tokens
+   ═══════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ─── Brand Colors ───────────────────────────────────── */
+  --color-amber-glow: #f59e0b;
+  --color-amber-warm: #fbbf24;
+  --color-amber-deep: #d97706;
+  --color-amber-muted: #92400e;
+
+  --color-purple-accent: #a855f7;
+  --color-purple-deep: #7c3aed;
+  --color-purple-soft: #c084fc;
+
+  --color-emerald-accent: #34d399;
+  --color-rose-accent: #fb7185;
+  --color-sky-accent: #38bdf8;
+
+  /* ─── Heatmap Intensity Scale ────────────────────────── */
+  --color-heat-0: #1c1917;
+  --color-heat-1: #451a03;
+  --color-heat-2: #78350f;
+  --color-heat-3: #b45309;
+  --color-heat-4: #f59e0b;
+
+  /* ─── Spacing ────────────────────────────────────────── */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  --spacing-128: 32rem;
+
+  /* ─── Border Radius ──────────────────────────────────── */
+  --radius-4xl: 2rem;
+
+  /* ─── Animations ─────────────────────────────────────── */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-delayed: float 8s ease-in-out 2s infinite;
+  --animate-float-slow: float 10s ease-in-out 4s infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+}
+
+/* ─── Animation Keyframes ──────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -30px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(20px, 10px) scale(1.02); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes aurora-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES — Theme-Aware
+   Switched via .dark / .light class on <html>
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Default: dark mode */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #171717;
+  --bg-tertiary: #262626;
+
+  --text-primary: #fafafa;
+  --text-secondary: #a3a3a3;
+  --text-tertiary: #737373;
+
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-hover: rgba(255, 255, 255, 0.08);
+
+  --aurora-1: rgba(245, 158, 11, 0.15);
+  --aurora-2: rgba(168, 85, 247, 0.15);
+  --aurora-3: rgba(52, 211, 153, 0.1);
+  --aurora-4: rgba(251, 113, 133, 0.08);
+
+  --heatmap-empty: rgba(255, 255, 255, 0.06);
+
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(245, 158, 11, 0.15);
+
+  color-scheme: dark;
+}
+
+.light {
+  --bg-primary: #fafaf9;
+  --bg-secondary: #f5f5f4;
+  --bg-tertiary: #e7e5e4;
+
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-tertiary: #a8a29e;
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(214, 211, 209, 0.5);
+  --glass-hover: rgba(255, 255, 255, 0.85);
+
+  --aurora-1: rgba(245, 158, 11, 0.08);
+  --aurora-2: rgba(168, 85, 247, 0.08);
+  --aurora-3: rgba(52, 211, 153, 0.06);
+  --aurora-4: rgba(251, 113, 133, 0.05);
+
+  --heatmap-empty: rgba(0, 0, 0, 0.06);
+
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 20px rgba(245, 158, 11, 0.08);
+
+  color-scheme: light;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BASE STYLES — inside @layer base so utilities can override
+   ═══════════════════════════════════════════════════════════ */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* ─── Scrollbar ────────────────────────────────────────── */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-tertiary);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════ */
+
+/* Glass panel — the primary card surface */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.glass-panel:hover {
+  background: var(--glass-hover);
+}
+
+/* Glass panel — no hover lift */
+.glass-panel-static {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1rem;
+}
+
+/* Glow effect for featured cards */
+.glow-card {
+  box-shadow: var(--shadow-glass), var(--shadow-glow);
+}
+
+/* Text color utilities */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+.bg-tertiary { background-color: var(--bg-tertiary); }
+
+/* Aurora background */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.8;
+}
+
+.aurora-blob-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--aurora-1), transparent 70%);
+  top: -10%;
+  left: -5%;
+  animation: var(--animate-float);
+}
+
+.aurora-blob-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--aurora-2), transparent 70%);
+  top: 20%;
+  right: -10%;
+  animation: var(--animate-float-delayed);
+}
+
+.aurora-blob-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--aurora-3), transparent 70%);
+  bottom: -5%;
+  left: 30%;
+  animation: var(--animate-float-slow);
+}
+
+.aurora-blob-4 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, var(--aurora-4), transparent 70%);
+  bottom: 20%;
+  right: 20%;
+  animation: var(--animate-float);
+}

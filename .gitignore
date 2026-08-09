@@ -1,0 +1,28 @@
+# Dependency directories
+**/node_modules/
+
+# Local env files
+**/.env
+**/.env.local
+**/.env.*.local
+**/.env.production
+
+# Production build outputs
+**/dist/
+**/build/
+
+# IDE/Tooling artifacts
+.agents/
+.gemini/
+**/.system_generated/
+**/.tempmediaStorage/
+
+# Media artifacts & logs
+**/*.webp
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.log
+**/*.txt
+.DS_Store
+Thumbs.db
