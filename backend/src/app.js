@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 // ─── Health check ────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
-  res.json({ success: true, message: 'Momentum API is running 🚀' });
+  res.json({ success: true, message: 'AI-Tracker API is running 🚀' });
 });
 
 // ─── Routes ──────────────────────────────────────────────

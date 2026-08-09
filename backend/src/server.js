@@ -11,7 +11,7 @@ const startServer = async () => {
   await connectDB();
 
   app.listen(PORT, () => {
-    console.log(`🚀 Momentum server running on port ${PORT}`);
+    console.log(`🚀 AI-Tracker server running on port ${PORT}`);
     console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 };

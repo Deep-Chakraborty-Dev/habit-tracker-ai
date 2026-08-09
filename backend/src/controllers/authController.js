@@ -19,7 +19,7 @@ const generateRefreshToken = (user) => {
 
 const setRefreshTokenCookie = (res, token) => {
   const isProduction = process.env.NODE_ENV === 'production';
-  res.cookie('momentum_refresh_token', token, {
+  res.cookie('aitracker_refresh_token', token, {
     httpOnly: true,
     secure: isProduction, // HTTPS in production
     sameSite: isProduction ? 'none' : 'lax', // Lax for dev, None for cross-site prod
@@ -128,7 +128,7 @@ const login = asyncHandler(async (req, res) => {
  */
 const refresh = asyncHandler(async (req, res) => {
   // Read refresh token from cookies
-  const refreshToken = req.cookies.momentum_refresh_token;
+  const refreshToken = req.cookies.aitracker_refresh_token;
 
   if (!refreshToken) {
     throw new ApiError(401, 'No refresh token provided');
@@ -158,7 +158,7 @@ const refresh = asyncHandler(async (req, res) => {
  */
 const logout = asyncHandler(async (req, res) => {
   // Clear cookie
-  res.clearCookie('momentum_refresh_token', {
+  res.clearCookie('aitracker_refresh_token', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',

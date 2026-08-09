@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   // ─── Fetch Current User Context ─────────────────────────
   const fetchMe = useCallback(async () => {
-    const token = localStorage.getItem('momentum-token');
+    const token = localStorage.getItem('aitracker-token');
     if (!token) {
       clearAuth();
       setInit(true);
@@ -27,12 +27,12 @@ export const AuthProvider = ({ children }) => {
       if (res.success) {
         setAuth(res.data.user, token);
       } else {
-        localStorage.removeItem('momentum-token');
+        localStorage.removeItem('aitracker-token');
         clearAuth();
       }
     } catch (error) {
       console.error('Failed to restore auth session:', error.message);
-      localStorage.removeItem('momentum-token');
+      localStorage.removeItem('aitracker-token');
       clearAuth();
     } finally {
       setLoading(false);
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       const res = await authApi.login(email, password);
       if (res.success && res.data) {
         const { token, user: userData } = res.data;
-        localStorage.setItem('momentum-token', token);
+        localStorage.setItem('aitracker-token', token);
         setAuth(userData, token);
         return { success: true };
       }
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
       const res = await authApi.signup(name, email, password, timezone);
       if (res.success && res.data) {
         const { token, user: userData } = res.data;
-        localStorage.setItem('momentum-token', token);
+        localStorage.setItem('aitracker-token', token);
         setAuth(userData, token);
         return { success: true };
       }
@@ -96,7 +96,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Logout error on server:', error.message);
     } finally {
-      localStorage.removeItem('momentum-token');
+      localStorage.removeItem('aitracker-token');
       clearAuth();
       setLoading(false);
     }

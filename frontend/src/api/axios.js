@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- * Axios instance configured for the Momentum API.
+ * Axios instance configured for the AI-Tracker API.
  * In development, Vite's proxy handles /api → localhost:5000.
  * In production, set VITE_API_URL to the deployed server.
  */
@@ -16,7 +16,7 @@ const api = axios.create({
 // ─── Request interceptor: attach JWT ─────────────────────
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('momentum-token');
+    const token = localStorage.getItem('aitracker-token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -36,7 +36,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem('momentum-refresh-token');
+        const refreshToken = localStorage.getItem('aitracker-refresh-token');
         if (!refreshToken) throw new Error('No refresh token');
 
         const { data } = await axios.post('/api/auth/refresh', {
@@ -44,14 +44,14 @@ api.interceptors.response.use(
         });
 
         if (data.success) {
-          localStorage.setItem('momentum-token', data.data.token);
+          localStorage.setItem('aitracker-token', data.data.token);
           originalRequest.headers.Authorization = `Bearer ${data.data.token}`;
           return api(originalRequest);
         }
       } catch (refreshError) {
         // Refresh failed — clear tokens and redirect to login
-        localStorage.removeItem('momentum-token');
-        localStorage.removeItem('momentum-refresh-token');
+        localStorage.removeItem('aitracker-token');
+        localStorage.removeItem('aitracker-refresh-token');
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }

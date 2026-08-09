@@ -1,114 +1,123 @@
-# Momentum — AI-Powered Habit Tracker
+# AI-Tracker — AI-Powered Habit Tracker 🚀
 
 > Build consistency, visualize progress, and get personalized coaching from Google Gemini.
 
-## Tech Stack
+---
 
-| Layer     | Choice                                                         |
-|-----------|----------------------------------------------------------------|
-| Frontend  | React 18 (Vite), React Router v6, TanStack Query, Zustand     |
-| Styling   | Tailwind CSS v4, CSS Custom Properties, Framer Motion          |
-| Backend   | Node.js + Express 4                                            |
-| Database  | MongoDB Atlas + Mongoose                                       |
-| Auth      | JWT (access + refresh tokens), bcrypt                          |
-| AI        | Google Gemini API (`@google/generative-ai`)                    |
-| Charts    | Recharts, custom SVG heatmap & progress rings                  |
+## 🏗️ Technical Stack
 
-## Getting Started
+| Layer | Choice |
+|---|---|
+| **Frontend** | React 18 (Vite), React Router v6, TanStack Query, Zustand |
+| **Styling** | Tailwind CSS v4, CSS Custom Properties, Framer Motion |
+| **Backend** | Node.js + Express 4 |
+| **Database** | MongoDB Atlas + Mongoose |
+| **Auth** | JWT (access + refresh tokens), cookie-parser, bcrypt |
+| **AI** | Google Gemini API (`@google/generative-ai`) |
+| **Charts** | Recharts, custom SVG heatmap & progress rings |
+
+---
+
+## 🎯 Rebranded Features & Layout
+- **Vertical Sidebar**: Refactored desktop header into a left-side vertical sidebar (`Navbar.jsx`) with layout margins.
+- **Gym & Professional Logo**: Merged purple Briefcase (work productivity) overlaying an amber Dumbbell (gym/fitness).
+- **Daily motivate**: Cached morning inspiration quotes.
+- **AI Coach Q&A**: Floating interactive chat widgets.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js ≥ 18
 - MongoDB Atlas cluster (or local MongoDB)
 - Google Gemini API key (for AI features)
 
-### 1. Clone & Install
+### 1. Installation
 
 ```bash
-git clone <repo-url>
-cd momentum
+# Clone the repository
+git clone https://github.com/madhusaicharan/ai-habit-tracker.git
+cd ai-habit-tracker
 
-# Install server dependencies
-cd server
+# Install backend dependencies
+cd backend
 npm install
 
-# Install client dependencies
-cd ../client
+# Install frontend dependencies
+cd ../frontend
 npm install
 ```
 
 ### 2. Configure Environment
 
-```bash
-# Server
-cp server/.env.example server/.env
-# Edit server/.env with your MongoDB URI, JWT secrets, and Gemini API key
+Create a `.env` file inside `/backend` (copied from `backend/.env.example`):
+```env
+MONGODB_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_access_secret
+JWT_REFRESH_SECRET=your_jwt_refresh_secret
+GEMINI_API_KEY=your_google_gemini_api_key
+PORT=5000
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
+```
 
-# Client
-cp client/.env.example client/.env
-# Usually no changes needed for development
+Create a `.env` file inside `/frontend` (copied from `frontend/.env.example`):
+```env
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ### 3. Run in Development
 
 ```bash
-# Terminal 1: Start server
-cd server
+# Terminal 1: Start backend Express API server
+cd backend
 npm run dev
 
-# Terminal 2: Start client
-cd client
+# Terminal 2: Start frontend React dev server
+cd frontend
 npm run dev
 ```
 
-The client runs on `http://localhost:5173` and proxies API requests to the server on port 5000.
+The frontend runs on `http://localhost:5173` and proxies API requests to the backend server on port `5000`.
 
-## Project Structure
+---
+
+## 📂 Project Structure
 
 ```
-momentum/
-├── client/                     # React (Vite) frontend
+ai-habit-tracker/
+├── frontend/                   # React (Vite) frontend (formerly client/)
 │   ├── src/
 │   │   ├── api/                # Axios instance + API functions
 │   │   ├── components/
 │   │   │   ├── ui/             # Button, GlassPanel, Modal, Toast
-│   │   │   ├── layout/         # Navbar, BottomTabBar, AuroraBackground, ThemeToggle
-│   │   │   ├── habits/         # Habit cards, forms (Phase 3+)
-│   │   │   ├── heatmap/        # 90-day heatmap (Phase 5)
-│   │   │   ├── charts/         # Recharts components (Phase 6)
-│   │   │   └── ai/             # AI feature components (Phase 8)
-│   │   ├── pages/              # Dashboard, Weekly, Insights, Statistics, Settings
-│   │   ├── hooks/              # Custom hooks
-│   │   ├── store/              # Zustand stores (auth, theme)
-│   │   └── utils/              # Date helpers, streak calc
+│   │   │   ├── layout/         # Navbar (Sidebar), BottomTabBar, AuroraBackground
+│   │   │   ├── habits/         # Habit cards, forms
+│   │   │   ├── heatmap/        # 90-day heatmap
+│   │   │   ├── charts/         # Recharts components
+│   │   │   └── ai/             # AI suggestions, reports, chat widgets
+│   │   ├── pages/              # Dashboard, WeeklyGrid, Insights, Statistics, Settings
+│   │   ├── hooks/              # Custom hooks (useAI, useHabits, useStats)
+│   │   ├── store/              # Zustand stores
+│   │   └── utils/              # Date helpers
 │   └── .env.example
 │
-├── server/
+├── backend/                    # Express API backend (formerly server/)
 │   ├── src/
-│   │   ├── config/             # DB + Gemini client config
+│   │   ├── config/             # DB + Gemini config
 │   │   ├── models/             # Mongoose schemas
-│   │   ├── controllers/        # Route handlers
-│   │   ├── routes/             # Express routers
-│   │   ├── middleware/         # Auth, error handler, rate limiter
-│   │   ├── services/ai/       # Gemini prompt templates
-│   │   └── utils/             # asyncHandler, ApiError, ApiResponse
+│   │   ├── controllers/        # Route controllers
+│   │   ├── routes/             # Express routes
+│   │   ├── middleware/         # Auth, error handler, rate limiters
+│   │   ├── services/ai/       # Gemini prompts
+│   │   └── utils/             # apiResponse, ApiError
 │   └── .env.example
 │
 └── README.md
 ```
 
-## Build Phases
-
-- [x] **Phase 1** — Foundations (scaffold, theme, aurora, glass components)
-- [ ] **Phase 2** — Authentication
-- [ ] **Phase 3** — Habit CRUD
-- [ ] **Phase 4** — Daily Tracking & Streaks
-- [ ] **Phase 5** — Heatmap & Weekly Grid
-- [ ] **Phase 6** — Stats & Insights
-- [ ] **Phase 7** — Gemini AI Integration
-- [ ] **Phase 8** — AI-Powered UI
-- [ ] **Phase 9** — Polish & Accessibility
-- [ ] **Phase 10** — Deployment
+---
 
 ## License
-
 MIT

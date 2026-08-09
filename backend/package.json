@@ -1,7 +1,7 @@
 {
-  "name": "momentum-server",
+  "name": "aitracker-server",
   "version": "1.0.0",
-  "description": "Momentum AI Habit Tracker — Express API Server",
+  "description": "AI-Tracker Habit Tracker — Express API Server",
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",

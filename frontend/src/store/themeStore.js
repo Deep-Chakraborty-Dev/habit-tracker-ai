@@ -6,7 +6,7 @@ import { create } from 'zustand';
  */
 const getInitialTheme = () => {
   // Check localStorage first
-  const stored = localStorage.getItem('momentum-theme');
+  const stored = localStorage.getItem('aitracker-theme');
   if (stored === 'light' || stored === 'dark') return stored;
 
   // Fall back to system preference
@@ -22,12 +22,12 @@ const useThemeStore = create((set) => ({
   toggleTheme: () =>
     set((state) => {
       const next = state.theme === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('momentum-theme', next);
+      localStorage.setItem('aitracker-theme', next);
       return { theme: next };
     }),
 
   setTheme: (theme) => {
-    localStorage.setItem('momentum-theme', theme);
+    localStorage.setItem('aitracker-theme', theme);
     set({ theme });
   },
 }));
