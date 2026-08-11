@@ -14,9 +14,26 @@ app.set('trust proxy', 1);
 
 // ─── Security ────────────────────────────────────────────
 app.use(helmet());
+
+// Build allowed origins list (production + local dev)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:4173',
+];
+if (process.env.CLIENT_URL) {
+  allowedOrigins.push(process.env.CLIENT_URL.replace(/\/+$/, '')); // strip trailing slash
+}
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: function (origin, callback) {
+      // Allow requests with no origin (mobile apps, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`CORS policy: origin ${origin} not allowed`));
+    },
     credentials: true,
   })
 );
