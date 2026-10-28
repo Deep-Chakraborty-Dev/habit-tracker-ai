@@ -2,37 +2,27 @@
 
 /* ═══════════════════════════════════════════════════════════
    MOMENTUM — Tailwind v4 CSS-First Design System
-   Using @theme for custom design tokens
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
   /* ─── Brand Colors ───────────────────────────────────── */
-  --color-amber-glow: #f59e0b;
-  --color-amber-warm: #fbbf24;
-  --color-amber-deep: #d97706;
-  --color-amber-muted: #92400e;
-
-  --color-purple-accent: #a855f7;
+  --color-purple-primary: #a855f7;
   --color-purple-deep: #7c3aed;
   --color-purple-soft: #c084fc;
+  --color-purple-glow: #9333ea;
+
+  --color-beige-primary: #b48a56;
+  --color-beige-warm: #d8bc98;
+  --color-beige-deep: #99713e;
 
   --color-emerald-accent: #34d399;
   --color-rose-accent: #fb7185;
   --color-sky-accent: #38bdf8;
 
-  /* ─── Heatmap Intensity Scale ────────────────────────── */
-  --color-heat-0: #1c1917;
-  --color-heat-1: #451a03;
-  --color-heat-2: #78350f;
-  --color-heat-3: #b45309;
-  --color-heat-4: #f59e0b;
-
-  /* ─── Spacing ────────────────────────────────────────── */
+  /* ─── Spacing & Radii ────────────────────────────────── */
   --spacing-18: 4.5rem;
   --spacing-88: 22rem;
   --spacing-128: 32rem;
-
-  /* ─── Border Radius ──────────────────────────────────── */
   --radius-4xl: 2rem;
 
   /* ─── Animations ─────────────────────────────────────── */
@@ -44,7 +34,6 @@
   --animate-fade-in: fade-in 0.3s ease-out;
 }
 
-/* ─── Animation Keyframes ──────────────────────────────── */
 @keyframes float {
   0%, 100% { transform: translate(0, 0) scale(1); }
   25% { transform: translate(30px, -30px) scale(1.05); }
@@ -67,71 +56,77 @@
   to { opacity: 1; }
 }
 
-@keyframes aurora-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 /* ═══════════════════════════════════════════════════════════
-   CSS CUSTOM PROPERTIES — Theme-Aware
-   Switched via .dark / .light class on <html>
+   1. DEFAULT: DARK MODE (CYBER PURPLE)
    ═══════════════════════════════════════════════════════════ */
-:root {
-  /* Default: dark mode */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #171717;
-  --bg-tertiary: #262626;
+:root,
+html.dark {
+  --bg-primary: #0a0812;
+  --bg-secondary: #120d20;
+  --bg-tertiary: #1a122e;
 
-  --text-primary: #fafafa;
-  --text-secondary: #a3a3a3;
-  --text-tertiary: #737373;
+  --text-primary: #f5f3ff;
+  --text-secondary: #c4b5fd;
+  --text-tertiary: #7c6f96;
 
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-hover: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(18, 13, 32, 0.85);
+  --glass-border: rgba(168, 85, 247, 0.22);
+  --glass-hover: rgba(28, 20, 48, 0.9);
 
-  --aurora-1: rgba(245, 158, 11, 0.15);
-  --aurora-2: rgba(168, 85, 247, 0.15);
-  --aurora-3: rgba(52, 211, 153, 0.1);
-  --aurora-4: rgba(251, 113, 133, 0.08);
+  --accent-primary: #a855f7;
+  --accent-gradient: linear-gradient(135deg, #9333ea, #7c3aed, #6366f1);
+  --accent-glow: rgba(168, 85, 247, 0.4);
+  --button-text: #ffffff;
 
-  --heatmap-empty: rgba(255, 255, 255, 0.06);
+  --aurora-1: rgba(168, 85, 247, 0.2);
+  --aurora-2: rgba(124, 58, 237, 0.18);
+  --aurora-3: rgba(99, 102, 241, 0.12);
+  --aurora-4: rgba(236, 72, 153, 0.1);
 
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 20px rgba(245, 158, 11, 0.15);
+  --heatmap-empty: rgba(255, 255, 255, 0.05);
+  --shadow-glass: 0 10px 35px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 25px rgba(168, 85, 247, 0.25);
 
   color-scheme: dark;
 }
 
-.light {
-  --bg-primary: #fafaf9;
-  --bg-secondary: #f5f5f4;
-  --bg-tertiary: #e7e5e4;
+/* ═══════════════════════════════════════════════════════════
+   2. LIGHT MODE (WARM BEIGE) - High Specificity
+   ═══════════════════════════════════════════════════════════ */
+html.light,
+html.light :root,
+body.light {
+  --bg-primary: #f5f2eb !important;
+  --bg-secondary: #eae4d6 !important;
+  --bg-tertiary: #ded5c2 !important;
 
-  --text-primary: #1c1917;
-  --text-secondary: #57534e;
-  --text-tertiary: #a8a29e;
+  --text-primary: #2d261e !important;
+  --text-secondary: #6e5f4f !important;
+  --text-tertiary: #9c8b78 !important;
 
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(214, 211, 209, 0.5);
-  --glass-hover: rgba(255, 255, 255, 0.85);
+  --glass-bg: rgba(255, 255, 255, 0.85) !important;
+  --glass-border: rgba(180, 165, 145, 0.4) !important;
+  --glass-hover: rgba(255, 255, 255, 0.95) !important;
 
-  --aurora-1: rgba(245, 158, 11, 0.08);
-  --aurora-2: rgba(168, 85, 247, 0.08);
-  --aurora-3: rgba(52, 211, 153, 0.06);
-  --aurora-4: rgba(251, 113, 133, 0.05);
+  --accent-primary: #b48a56 !important;
+  --accent-gradient: linear-gradient(135deg, #d8bc98, #b48a56, #99713e) !important;
+  --accent-glow: rgba(180, 138, 86, 0.25) !important;
+  --button-text: #2d261e !important;
 
-  --heatmap-empty: rgba(0, 0, 0, 0.06);
+  --aurora-1: rgba(180, 138, 86, 0.15) !important;
+  --aurora-2: rgba(216, 188, 152, 0.18) !important;
+  --aurora-3: rgba(153, 113, 62, 0.1) !important;
+  --aurora-4: rgba(245, 242, 235, 0.25) !important;
 
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 0 20px rgba(245, 158, 11, 0.08);
+  --heatmap-empty: rgba(0, 0, 0, 0.07) !important;
+  --shadow-glass: 0 10px 30px rgba(70, 55, 40, 0.08) !important;
+  --shadow-glow: 0 0 25px rgba(180, 138, 86, 0.15) !important;
 
-  color-scheme: light;
+  color-scheme: light !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BASE STYLES — inside @layer base so utilities can override
+   BASE STYLES
    ═══════════════════════════════════════════════════════════ */
 @layer base {
   * {
@@ -154,9 +149,9 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* ─── Scrollbar ────────────────────────────────────────── */
   ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
@@ -173,37 +168,32 @@
 /* ═══════════════════════════════════════════════════════════
    UTILITY CLASSES
    ═══════════════════════════════════════════════════════════ */
-
-/* Glass panel — the primary card surface */
 .glass-panel {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-glass);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 1rem;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  border-radius: 1.25rem;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 .glass-panel:hover {
   background: var(--glass-hover);
 }
 
-/* Glass panel — no hover lift */
 .glass-panel-static {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-glass);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 1rem;
+  border-radius: 1.25rem;
 }
 
-/* Glow effect for featured cards */
 .glow-card {
   box-shadow: var(--shadow-glass), var(--shadow-glow);
 }
 
-/* Text color utilities */
 .text-primary { color: var(--text-primary); }
 .text-secondary { color: var(--text-secondary); }
 .text-tertiary { color: var(--text-tertiary); }
@@ -211,7 +201,7 @@
 .bg-secondary { background-color: var(--bg-secondary); }
 .bg-tertiary { background-color: var(--bg-tertiary); }
 
-/* Aurora background */
+/* Aurora Background System */
 .aurora-bg {
   position: fixed;
   inset: 0;
@@ -223,8 +213,9 @@
 .aurora-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.8;
+  filter: blur(90px);
+  opacity: 0.85;
+  transition: background 0.4s ease;
 }
 
 .aurora-blob-1 {

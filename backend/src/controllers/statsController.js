@@ -102,17 +102,19 @@ const getMonthlyStats = asyncHandler(async (req, res) => {
   });
 
   // Build sequential array of last 6 months
-  const statsData = [];
-  const monthCursor = new Date(sixMonthsAgo);
+    const statsData = [];
 
-  for (let i = 0; i < 6; i++) {
-    const monthKey = monthCursor.toISOString().substring(0, 7); // 'YYYY-MM'
-    const monthName = monthCursor.toLocaleDateString('en-US', { month: 'short' });
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+    const year = d.getFullYear();
+    const monthNum = String(d.getMonth() + 1).padStart(2, '0');
+    const monthKey = `${year}-${monthNum}`;
+    const monthName = d.toLocaleDateString('en-US', { month: 'short' });
+
     statsData.push({
       month: monthName,
       completions: monthlyCounts[monthKey] || 0,
     });
-    monthCursor.setMonth(monthCursor.getMonth() + 1);
   }
 
   return ApiResponse.success(res, statsData, 'Monthly completion stats retrieved successfully');

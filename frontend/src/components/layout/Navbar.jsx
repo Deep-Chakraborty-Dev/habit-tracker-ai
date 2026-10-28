@@ -40,15 +40,11 @@ const Navbar = () => {
       <div className="space-y-8 w-full">
         {/* Brand / Logo */}
         <NavLink to="/" className="flex items-center gap-3 no-underline px-1">
-          <div className="relative w-10 h-10 shrink-0">
-            <Briefcase className="w-6 h-6 text-purple-400 absolute top-0 left-0 opacity-80" />
-            <Dumbbell className="w-6.5 h-6.5 text-amber-500 absolute bottom-0 right-0 rotate-45" style={{ filter: 'drop-shadow(0 0 10px rgba(245, 158, 11, 0.4))' }} />
-          </div>
           <span
             className="text-xl font-bold tracking-tight"
             style={{ color: 'var(--text-primary)' }}
           >
-            AI-Tracker
+            Habit-Tracker
           </span>
         </NavLink>
 

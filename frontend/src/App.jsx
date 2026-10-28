@@ -8,7 +8,6 @@ import Navbar from './components/layout/Navbar';
 import BottomTabBar from './components/layout/BottomTabBar';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import { ToastContainer } from './components/ui/Toast';
-import AIChatWidget from './components/ai/AIChatWidget';
 
 // Auth Context
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -127,8 +126,7 @@ const AppContent = () => {
       {/* Mobile bottom tab bar (only when logged in) */}
       {isAuthenticated && <BottomTabBar />}
 
-      {/* Floating AI Chat Assistant (only when logged in) */}
-      {isAuthenticated && <AIChatWidget />}
+      
     </>
   );
 };

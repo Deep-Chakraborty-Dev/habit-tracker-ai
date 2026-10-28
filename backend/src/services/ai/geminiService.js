@@ -20,7 +20,7 @@ const generateWeeklyReport = async (habitsData, logsData) => {
     const prompt = `
       You are an elite productivity and performance coach. Analyze the user's weekly habit tracking data and generate a structured JSON report.
       
-      User's Habit Data:
+      User's Habit Data:f
       ${JSON.stringify(habitsData, null, 2)}
       
       Completion Logs (Last 7 Days):
